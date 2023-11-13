@@ -1,6 +1,7 @@
 const input = document.querySelector(".input");
 const result = document.querySelector(".result");
 const deleteBtn = document.querySelector(".delete");
+const cancelBtn = document.querySelector(".cancel");
 const keys = document.querySelectorAll(".bottom span");
 
 let operation = "";
@@ -10,7 +11,7 @@ let decimalAdded = false;
 const operators = ["+", "-", "x", "÷"];
 
 //nested function / if conditions
-function handleKeyPress (e) {
+function handleKeyPress(e) {
   const key = e.target.dataset.key;
   const lastChar = operation[operation.length - 1];
 
@@ -49,9 +50,7 @@ function handleKeyPress (e) {
     input.innerHTML = operation;
     return;
   }
-
 }
-
 
 function evaluate(e) {
   const key = e.target.dataset.key;
@@ -68,7 +67,6 @@ function evaluate(e) {
   }
 
   try {
-
     if (operation[0] === "0" && operation[1] !== "." && operation.length > 1) {
       operation = operation.slice(1);
     }
@@ -86,7 +84,6 @@ function evaluate(e) {
     }
 
     result.innerHTML = answer;
-
   } catch (e) {
     if (key === "=") {
       decimalAdded = false;
@@ -95,26 +92,28 @@ function evaluate(e) {
     }
     console.log(e);
   }
-
 }
 
+function clearInput(e) {
+  const key = e.target.dataset.key;
 
-function clearInput (e) {
-
-  if (e.ctrlKey) {
+  if (key === "C") {
     operation = "";
     answer = "";
-    input.innerHTML = operation;
-    result.innerHTML = answer;
-    return;
+  } else if (e.ctrlKey) {
+    operation = "";
+    answer = "";
+  } else {
+    operation = operation.slice(0, -1);
   }
 
-  operation = operation.slice(0, -1);
   input.innerHTML = operation;
-
+  result.innerHTML = answer;
 }
 
 deleteBtn.addEventListener("click", clearInput);
+cancelBtn.addEventListener("click", clearInput);
+
 keys.forEach(key => {
   key.addEventListener("click", handleKeyPress);
   key.addEventListener("click", evaluate);

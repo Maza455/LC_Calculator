@@ -145,3 +145,23 @@ html {
 .credit a, .error {
   color: #18c245;
 }
+
+/* Add these styles to your existing CSS file */
+
+.cancel {
+  font-size: 2vw; /* Adjust font size based on viewport width */
+  background-color: #f41616; /* Choose a color for the cancel button */
+}
+
+
+@media only screen and (max-width: 768px) {
+  .calculator {
+    margin-top: 30px; 
+  }
+
+  .keys .column span,
+  .operators span,
+  .cancel {
+    font-size: 4vw; 
+  }
+}
